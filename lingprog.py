@@ -3,17 +3,15 @@ app = Flask(__name__)
 import sqlite3
 connection = sqlite3.connect('tabela.db')
 
-
 #cursor.execute('CREATE TABLE user (id INTEGER PRIMARY KEY, usuário Text Not Null, senha INTEGER Not Null)')
-
+cursor = connection.cursor()
+#cursor.execute('CREATE TABLE disciplinas (id INTEGER PRIMARY KEY,disciplina TEXT NOT NULL,codigo TEXT NOT NULL)')
 @app.route("/")
 def bkbbbbb():
     return render_template('Inicio.html')
 
 @app.route("/logar", methods=['POST'])
 def echo():
-    global user
-    global senha
     user = str(request.form["user"])
     senha = int(request.form["senha"])
     
@@ -28,12 +26,15 @@ def echo():
             return 'bem vindo ' + user
     else: 
         return 'Usuário ou Senha incorretos.'
-    
-    
+
 
 @app.route("/cadastrar", methods=['POST'])
 def cadastrar():
     return render_template('cadastrar.html')
+
+@app.route("/disciplina", methods=['POST'])
+def disciplinar():
+    return render_template('disciplina.html')
 
 
 @app.route("/guardarcadastro", methods=['POST'])
@@ -46,17 +47,16 @@ def aprovado():
         connection.commit()
     return redirect("/")    
 
-@app.route("/provafinal", methods=['POST'])
-def echo1():
-    p3 = int(request.form["p3"])
-    if ((2*p3+p1+p2)/4 < 5):
-        return render_template('reprovado.html')
-    else:
-        return render_template('aprovado.html', algumagamejam = (2*p3+p1+p2)/4)
+@app.route("/guardardisciplina", methods=['POST'])
+def cadisciplina():
+    with sqlite3.connect('tabela.db') as connection:
+        cursor = connection.cursor()
+        materia = str(request.form["materia"])
+        codigo = str(request.form["codigo"])
+        cursor.execute('INSERT INTO disciplinas (disciplina, codigo) VALUES(?, ?)', (materia, codigo))
+        connection.commit()
+    return redirect("/")            
 
-@app.route("/reprovado", methods=['POST'])
-def echo2():
-    return render_template('reprovado.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
