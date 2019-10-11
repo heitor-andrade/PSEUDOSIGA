@@ -1,0 +1,18 @@
+body{
+    background : url(http://img1.ak.crunchyroll.com/i/spire3/327158503408934dc871c828ff4cf8831515905393_full.jpg);
+    font-family: cursive;
+    place-items: center;
+    align-items: center;
+    margin: 50;   
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    }
+h2{
+    font-family: cursive;
+    color: rgb(32, 12, 51);
+    align-items: center;
+}
+input{
+    font-size: large;
+    font-family: cursive;
+}

@@ -1,0 +1,13 @@
+{% block body %}
+<link href= "/static/css/style.css" type="text/css" rel="stylesheet">  
+
+
+<form action="/guardarlogin" method = "POST">
+        <h2>user:</h2>
+        <input name="user">
+        <br>
+        <h2>senha:</h2>
+        <input type= "password" name="senha">
+        <input type= "submit" value= "logar">
+    </form>
+{% endblock %}
